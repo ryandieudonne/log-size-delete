@@ -1,6 +1,6 @@
 #my original script was this:
 
-find /home/ryan/Documents -type f -size +20c -exec truncate --size 10 "{}" /;
+#find /home/ryan/Documents -type f -size +20c -exec truncate --size 10 "{}" /;
 
 # This found the log file in its specific location and checked if it was bigger than a certain size and if it was then it could truncate the log file to a smaller size. The problem is that it was truncate newer outout instead of older ouptput as we wanted and after doing research it looked like there was no option ro do the oposite of this command.
 
@@ -9,6 +9,7 @@ find /home/ryan/Documents -type f -size +20c -exec truncate --size 10 "{}" /;
 
 # This is what i came up with instead:
 
+#!/bin/bash
 
 file="/home/ryan/log.txt"
 maxsize=700  # kilobytes
