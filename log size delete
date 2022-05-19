@@ -1,0 +1,38 @@
+#my original script was this:
+
+find /home/ryan/Documents -type f -size +20c -exec truncate --size 10 "{}" /;
+
+# This found the log file in its specific location and checked if it was bigger than a certain size and if it was then it could truncate the log file to a smaller size. The problem is that it was truncate newer outout instead of older ouptput as we wanted and after doing research it looked like there was no option ro do the oposite of this command.
+
+
+
+
+# This is what i came up with instead:
+
+
+file="/home/ryan/log.txt"
+maxsize=700  # kilobytes
+
+
+while true; do
+    actualsize=$(du -k "$file" | cut -f1)
+    if [ $actualsize -ge $maxsize ]; then
+        sed -i '1,5000d' $file
+
+        exit
+    else
+        echo size is under $maxsize kilobytes
+
+        exit
+    fi
+
+
+done
+
+
+# This checks if the log file is a certain size and if it is then it will delete as many lines of output as you want, starting from 1 - any number. To use this properly then we would just have to know huch much output will it take for the file to reach our size limit and then whatever that is then add that number to the script and have it only delete the first half.
+#sorry if my writing is confusing
+
+
+
+
